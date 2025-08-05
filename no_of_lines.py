@@ -8,28 +8,34 @@ def count_lines_in_source_files(directory):
     total_lines = 0
     line_counts = {}
 
-    print(f"📁 Scanning directory: {directory}\n")
+    print(f"\n📁 Scanning directory (including subdirectories): {directory}\n")
 
-    for filename in os.listdir(directory):
-        file_path = os.path.join(directory, filename)
+    for root, dirs, files in os.walk(directory):
+        for filename in files:
+            if filename.endswith(ALLOWED_EXTENSIONS):
+                file_path = os.path.join(root, filename)
+                try:
+                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        lines = f.readlines()
+                        count = len(lines)
+                        relative_path = os.path.relpath(file_path, directory)
+                        line_counts[relative_path] = count
+                        total_lines += count
+                except Exception as e:
+                    print(f"❌ Could not read {file_path}: {e}")
 
-        # Only process allowed extensions
-        if os.path.isfile(file_path) and filename.endswith(ALLOWED_EXTENSIONS):
-            try:
-                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                    lines = f.readlines()
-                    count = len(lines)
-                    line_counts[filename] = count
-                    total_lines += count
-
-            except Exception as e:
-                print(f"❌ Could not read {filename}: {e}")
-
-    print("=== 📊 Summary ===")
-    for file, count in line_counts.items():
-        print(f"{file}: {count} lines")
-    print(f"\n🧮 Total lines across all source files: {total_lines}")
+    if line_counts:
+        print("=== 📊 Summary of Source Code Line Counts ===\n")
+        for file, count in sorted(line_counts.items()):
+            print(f"📄 {file}: {count} lines")
+        print(f"\n🧮 Total lines across all source files: {total_lines}")
+    else:
+        print("⚠️ No source files with allowed extensions found.")
 
 # Example usage
-directory_path = input("Enter the directory path: ").strip()
-count_lines_in_source_files(directory_path)
+if __name__ == '__main__':
+    directory_path = input("📥 Enter the directory path: ").strip()
+    if os.path.isdir(directory_path):
+        count_lines_in_source_files(directory_path)
+    else:
+        print("❌ Invalid directory path. Please enter a valid one.")

@@ -2,7 +2,7 @@
 import os
 
 # Allowed source code file extensions
-ALLOWED_EXTENSIONS = ('.java', '.py', '.kt', '.js', '.ts', '.vb', '.html', '.css')
+ALLOWED_EXTENSIONS = ('.java', '.py', '.kt', '.js', '.ts', '.vb', '.html', '.cs')
 
 def count_lines_in_source_files(directory):
     total_lines = 0
@@ -39,3 +39,4 @@ if __name__ == '__main__':
         count_lines_in_source_files(directory_path)
     else:
         print("❌ Invalid directory path. Please enter a valid one.")
+

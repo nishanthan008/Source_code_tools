@@ -2,7 +2,45 @@
 import os
 
 # Allowed source code file extensions
-ALLOWED_EXTENSIONS = ('.java', '.py', '.kt', '.js', '.ts', '.vb', '.html', '.cs')
+ALLOWED_EXTENSIONS = (
+    # High-usage programming languages
+    '.py',     # Python
+    '.java',   # Java
+    '.js',     # JavaScript
+    '.ts',     # TypeScript
+    '.jsx',    # React (JavaScript)
+    '.tsx',    # React (TypeScript)
+    '.cpp',    # C++
+    '.c',      # C
+    '.cs',     # C#
+    '.rb',     # Ruby
+    '.go',     # Go
+    '.php',    # PHP
+    '.swift',  # Swift
+    '.kt',     # Kotlin
+    '.rs',     # Rust
+    '.m',      # Objective-C
+    '.r',      # R
+    '.dart',   # Dart
+    '.scala',  # Scala
+    '.sh',     # Shell script
+
+    # Web development / frontend
+    '.html',   # HTML
+    '.css',    # CSS
+
+    # Configuration / markup / data
+    '.json',   # JSON config/data
+    '.yaml', '.yml',  # YAML
+    '.xml',    # XML
+    '.ini',    # INI files
+    '.toml',   # TOML
+    '.env',    # Environment variables
+    '.config', # Generic .config files
+    '.cfg',    # Configuration
+    '.properties', # Java .properties files
+    '.sql',    # SQL scripts
+)
 
 def count_lines_in_source_files(directory):
     total_lines = 0
@@ -39,4 +77,5 @@ if __name__ == '__main__':
         count_lines_in_source_files(directory_path)
     else:
         print("❌ Invalid directory path. Please enter a valid one.")
+
 
